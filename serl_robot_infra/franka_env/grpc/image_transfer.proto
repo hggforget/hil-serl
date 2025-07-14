@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+service ImageTransfer {
+    rpc UploadImageAndData (ImageDataRequest) returns (ImageDataResponse);
+}
+
+message ImageDataRequest {
+    int32 flag = 1;
+    repeated float right_action = 2;
+    repeated float left_action = 3;
+}
+
+message FloatDataRequest {
+    float float_data = 1;
+}
+
+message ImageDataResponse {
+    bytes image_body = 1;
+    bytes image_head_left = 2;
+    bytes image_head_right = 3;
+    repeated float right_arm_pose = 4;
+    repeated float right_hand_angle = 5;
+    repeated float left_arm_pose = 6;
+    repeated float left_hand_angle = 7;
+}
+
+

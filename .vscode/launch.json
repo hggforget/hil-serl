@@ -1,0 +1,216 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "train_reward_classifier",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "examples/train_reward_classifier.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--exp_name",
+                "take_cup"
+            ]
+        },
+        {
+            "name": "record_fail_success",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "--exp_name",
+                "take_mango"
+            ]
+        },
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "data_process",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "/mnt/hil-serl",
+            "program": "data_process/data_process_augment_zed.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--use_save_data",
+                "False",
+                "--use_compress_image",
+                "True",
+            ]
+        },
+        {
+            "name": "annotate",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "/mnt/hil-serl",
+            "program": "data_process/annotate.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--reward_data",
+                "/mnt/hil-serl/tasks/take_cup/init/demos/grasp/episodes.pickle"
+            ],
+            "env": {
+                "DISPLAY": "localhost:10.0"
+            }
+        },
+
+        {
+            "name": "actor_bostrapped",
+            "type": "debugpy",
+            "request": "launch",
+            "python": "/home/jd/miniconda3/envs/hilserl/bin/python",
+            "cwd": "/mnt/hil-serl",
+            "program": "examples/train_rlpd_bostrapped.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--exp_name",
+                "take_cup",
+                "--checkpoint_path",
+                "/mnt/hil-serl/tasks/take_cup/init/boostrapped_third_run",
+                "--bc_checkpoint_path",
+                "/mnt/hil-serl/tasks/take_cup/init/bc_minmax_noforzen_1e-4_split_ckpt",
+                // "--eval_n_trajs",
+                // "100",
+                // "--eval_checkpoint_step",
+                // "10000",
+                "--actor"
+            ],
+            "env": {
+                "XLA_PYTHON_CLIENT_PREALLOCATE": "false",
+                "XLA_PYTHON_CLIENT_MEM_FRACTION": ".1",
+                "DISPLAY": ":0"
+            }
+        },
+
+        {
+            "name": "learner_offline",
+            "type": "debugpy",
+            "request": "launch",
+            "python": "/home/jd/miniconda3/envs/hilserl/bin/python",
+            "cwd": "/mnt/hil-serl",
+            "program": "examples/train_rlpd_offline.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--exp_name",
+                "take_cup",
+                "--checkpoint_path",
+                "/mnt/hil-serl/tasks/take_cup/init/first_run_offline",
+                "--bc_checkpoint_path",
+                "/mnt/hil-serl/tasks/take_cup/init/bc_minmax_noforzen_1e-4_split_ckpt",
+                "--log_dir",
+                "/mnt/hil-serl/logs/rlpd_offline",
+                "--demo_path",
+                "/mnt/hil-serl/tasks/take_cup/init/demos/2025-02-11_20-20-49/bc_demos.pickle",
+                "--pretrain_critic_step",
+                "5000",
+                "--learner"
+            ],
+            "env": {
+                "XLA_PYTHON_CLIENT_PREALLOCATE": "false",
+                "XLA_PYTHON_CLIENT_MEM_FRACTION": ".3",
+                "DISPLAY": ":0"
+            }
+        },
+
+        {
+            "name": "learner",
+            "type": "debugpy",
+            "request": "launch",
+            "python": "/home/jd/miniconda3/envs/hilserl/bin/python",
+            "cwd": "/mnt/hil-serl",
+            "program": "examples/train_rlpd.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--exp_name",
+                "take_cup",
+                "--checkpoint_path",
+                "/mnt/hil-serl/tasks/take_cup/init/third_run",
+                "--bc_checkpoint_path",
+                "/mnt/hil-serl/tasks/take_cup/init/bc_minmax_noforzen_1e-4_split_ckpt",
+                "--log_dir",
+                "/mnt/hil-serl/logs/rlpd",
+                "--demo_path",
+                "/mnt/hil-serl/tasks/take_cup/init/demos/2025-02-11_20-20-49/bc_demos.pickle",
+                // "--pretrain_critic_step",
+                // "5000",
+                "--learner"
+            ],
+            "env": {
+                "XLA_PYTHON_CLIENT_PREALLOCATE": "false",
+                "XLA_PYTHON_CLIENT_MEM_FRACTION": ".3",
+                "DISPLAY": ":0"
+            }
+        },
+
+        {
+            "name": "learner_bostrapped",
+            "type": "debugpy",
+            "request": "launch",
+            "python": "/home/jd/miniconda3/envs/hilserl/bin/python",
+            "cwd": "/mnt/hil-serl",
+            "program": "examples/train_rlpd_bostrapped.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--exp_name",
+                "take_cup",
+                "--checkpoint_path",
+                "/mnt/hil-serl/tasks/take_cup/init/boostrapped_run_4",
+                "--bc_checkpoint_path",
+                "/mnt/hil-serl/tasks/take_cup/init/bc_minmax_noforzen_1e-4_split_ckpt",
+                "--log_dir",
+                "/mnt/hil-serl/logs/rlpd_bostrapped",
+                "--demo_path",
+                "/mnt/hil-serl/tasks/take_cup/init/demos/grasp_clip/rlpd_demos.pickle",
+                "--pretrain_critic_step",
+                "5000",
+                "--learner",
+                "--bootstrap",
+            ],
+            "env": {
+                "XLA_PYTHON_CLIENT_PREALLOCATE": "false",
+                "XLA_PYTHON_CLIENT_MEM_FRACTION": ".3",
+                "DISPLAY": ":0"
+            }
+        },
+
+        {
+            "name": "bc",
+            "type": "debugpy",
+            "request": "launch",
+            "python": "/home/jd/miniconda3/envs/hilserl/bin/python",
+            "cwd": "/mnt/hil-serl",
+            "program": "examples/train_bc.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--exp_name",
+                "take_cup",
+                "--bc_checkpoint_path",
+                "/mnt/hil-serl/tasks/take_cup/init/bc_latest_ckpt",
+                "--log_dir",
+                "/mnt/hil-serl/logs/bc",
+                "--demo_path",
+                "/mnt/hil-serl/tasks/take_cup/init/demos/grasp_clip/bc_demos.pickle",
+                // "--eval_n_trajs",
+                // "100",
+                // "--eval_mode",
+                // "eval_dataset",
+            ],
+            "env": {
+                "XLA_PYTHON_CLIENT_PREALLOCATE": "false",
+                "XLA_PYTHON_CLIENT_MEM_FRACTION": ".3",
+                // "DISPLAY": ":0"
+                "DISPLAY": "localhost:10.0"
+            }
+        }
+    ]
+}
